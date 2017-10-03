@@ -2,6 +2,10 @@ img{
 	max-height: 100%;
 	max-width: 100%;
 }
+h1{
+	color:white;
+	text-align: center;
+}
 .movieBoxes {
 	width: 30%;
 	float: left;
@@ -11,4 +15,7 @@ img{
     color: black;
     font-weight: bold;
     letter-spacing: 1px;
+}
+.form-wrapper{
+	margin-left: 20px;
 }

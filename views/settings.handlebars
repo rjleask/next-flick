@@ -1,0 +1,105 @@
+<div class="container">
+  <nav class="navbar navbar-inverse">
+    <h1>Personalize Your Settings</h1>
+  <button type="button" class="btn btn-default navbar-btn"><a href="/">Home</a></button>
+  <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+</nav>
+  <div class="jumbotron">
+  <form>
+   <div class="form-group">
+    <div class="radio">
+      <p>Movie category:Action</p>
+      <p>What do you most value in an action flick?</p>
+      <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios1" value="act-fighting">
+          Fighting   ----(Expendables, Rambo, Chuck Norris, Jean Claude Van Dam)
+     </label>
+    </div>
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios2" value="act-story">
+    Story/Plot   ----(Jason Bourne movies, Inception, Minority Report)
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios3" value="act-acting">
+    Acting     ----i.e(Inglorious Bastards, Gangs of New York)
+  </label>
+</div>
+<br>
+<div class="radio">
+  <p>Movie category:Comedy</p>
+  <p>What do you most value in a comedy flick?</p>
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios4" value="com-slapstick">
+    Slapstick   ----(Dumb and Dumber, The Mask, Jim Carey,)
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios5" value="com-dry">
+    Dry   ----(Office space, The Big Lebowski, Men Who stare at Goats)
+  </label>
+</div>
+<div class="radio disabled">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios6" value="com-romantic">
+    Romantic     ----(Bridget Jones Diary, When Harry Met Sally)
+  </label>
+</div>
+<br>
+<div class="radio">
+  <p>Movie category:Horror</p>
+  <p>What do you most value in a horror flick?</p>
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios7" value="hor-thriller">
+    Thriller   ----(Silence of the lambs,6th sense,Shutter Island)
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios8" value="hor-slice-dice">
+    Slice and Dice   ----(Jason Movies, Chucky, Texas Chainsaw Massacre)
+  </label>
+</div>
+<div class="radio disabled">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios9" value="hor-true-story">
+    True Story     ----(Amityville horrr, Zodiac, The Shining)
+  </label>
+</div>
+<br>
+<div class="radio">
+  <p>Movie category:Drama</p>
+  <p>What do you most value in a drama flick?</p>
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios10" value="dra-acting">
+    Acting   ----(Goodwill Hunting, Gran Torino, Birdman)
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios11" value="dra-plot">
+    Plot   ----(The shawshank redemption, The Prestiege, There will be blood)
+  </label>
+</div>
+<div class="radio disabled">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios12" value="dra-ramantic">
+    Romantic     ----(The Notebook, Titanic)
+  </label>
+</div>
+ <button type="submit" id="submit" class="btn btn-default">Submit</button>
+</div>
+</form>
+</div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $("#submit").on('click',function(e){
+    e.preventDefault();
+    var checkedInput = $('input[name=optionsRadios]:checked').val();
+    $.post("/api/settings")
+  })
+</script>
