@@ -1,0 +1,14 @@
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+.movieBoxes {
+	width: 30%;
+	float: left;
+}
+.navbar-btn {
+	background: #82ffa9;
+    color: black;
+    font-weight: bold;
+    letter-spacing: 1px;
+}

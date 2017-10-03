@@ -1,0 +1,45 @@
+<div class="container">
+<nav class="navbar navbar-inverse">
+  <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+  <button type="button" class="btn btn-default navbar-btn">Personalize</button>
+</nav>
+<div class="jumbotron">
+  <h1>NEXT FLICK!</h1>
+  <p>...</p>
+  <p><button type="button" class="btn btn-default navbar-btn">Horror</button>
+	<button type="button" class="btn btn-default navbar-btn">Drama</button>
+	<button type="button" class="btn btn-default navbar-btn">Action</button>
+	<button type="button" class="btn btn-default navbar-btn">Comedy</button></p>
+</div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function getMovies(){
+    $.ajax({
+      url: "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10",
+        dataType: 'json',
+        success: function(data){
+        	console.log(data.results[0].poster_path);
+        	for(var i=0; i < 10; i++){
+        		$(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path +"></div>"); 
+        	}
+        }
+    });
+
+}
+getMovies();
+// make random year for initial page load
+function getYear(){
+	var movieYears =[];
+	for(var i=1968; i <= 2017; i++ ){
+     movieYears.push(i);
+	}
+	var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
+	return rand.toString();
+}
+// get the url for the imgposters from tmdb
+function getMoviePosters(){
+     var imgUrl = "https://image.tmdb.org/t/p/w500";
+     return imgUrl;	
+}
+</script>
