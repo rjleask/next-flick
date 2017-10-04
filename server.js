@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // // Override with POST having ?_method=DELETE
 // app.use(methodOverride("_method"));
-require("./routes/login-api.js")(app);
+// require("./routes/login-api.js")(app);
 require("./routes/settings-api.js")(app);
 require("./routes/movieController.js")(app);
 
