@@ -1,50 +1,101 @@
-
 <nav class="navbar navbar-inverse">
-	<form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" id="username" placeholder="Username">
-          <input type="text" class="form-control" id="password" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-default">Sign in</button>
-      </form>
+  <form class="navbar-form navbar-left">
+    <div class="form-group">
+      <input type="text" class="form-control" id="username" placeholder="Username">
+      <input type="text" class="form-control" id="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default" id="sign-in">Login</button>
+  </form>
   <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="/personalize">Personalize</a></button>
+  <button type="button" class="btn btn-default navbar-btn navbar-right">Sign Up</button>
 </nav>
 <div class="jumbotron">
   <h1>NEXT FLICK!</h1>
   <p>What are you feeling?</p>
-  <p><button type="button" class="btn btn-default navbar-btn">Horror</button>
-	<button type="button" class="btn btn-default navbar-btn">Drama</button>
-	<button type="button" class="btn btn-default navbar-btn">Action</button>
-	<button type="button" class="btn btn-default navbar-btn">Comedy</button></p>
+  <p>
+    <button type="button" class="btn btn-default navbar-btn" id="horror">Horror</button>
+    <button type="button" class="btn btn-default navbar-btn" id="drama">Drama</button>
+    <button type="button" class="btn btn-default navbar-btn" id="action">Action</button>
+    <button type="button" class="btn btn-default navbar-btn" id="comedy">Comedy</button>
+  </p>
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-	function getMovies(){
-    $.ajax({
-      url: "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10",
-        dataType: 'json',
-        success: function(data){
-        	console.log(data.results[0].poster_path);
-        	for(var i=0; i < 10; i++){
-        		$(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path +"></div>"); 
-        	}
-        }
-    });
+var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10";
+
+// get horror movies using api
+$("#horror").on("click", function() {
+  var horrorUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=true&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=27%2C53";
+  $(".movieBoxes").remove.then(getMovies(horrorUrl));
+})
+// get drama
+$("#drama").on("click", function() {
+  var dramaUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10&with_genres=18%2C10749";
+  $(".movieBoxes").remove.then(getMovies(dramaUrl));
+})
+// get comedy
+$("#comedy").on("click", function() {
+  var comedyUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=35";
+
+  $(".movieBoxes").remove().then(getMovies(comedyUrl));
+})
+//  get action
+$("#action").on("click", function() {
+  var actionUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=1967&vote_average.gte=6&vote_average.lte=10&with_genres=28"
+  $(".movieBoxes").remove().then(getMovies(actionUrl));
+  // getMovies(actionUrl); 
+
+})
+// sign in 
+$("#sign-in").on("click", function(e) {
+  if ($.trim($("#password").val()) === "" || $.trim($("#username").val()) === "") {
+    e.preventDefault();
+    alert("Must provide username and password first");
+    return false;
+  } else {
+    var loginInfo = {
+      username: $("#username").val(),
+      password: $("#password").val()
+    }
+    $.post("/api/login", loginInfo, function() {})
+  }
+})
+getMovies(initialUrl);
+// get movies from api
+function getMovies(movieSearch) {
+  $.ajax({
+    url: movieSearch,
+    dataType: 'json',
+    success: function(data) {
+      console.log(data.results[0].poster_path);
+      for (var i = 0; i < 12; i++) {
+        $(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
+      }
+    }
+  });
 
 }
-getMovies();
 // make random year for initial page load
-function getYear(){
-	var movieYears =[];
-	for(var i=1968; i <= 2017; i++ ){
-     movieYears.push(i);
-	}
-	var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
-	return rand.toString();
+function getYear() {
+  var movieYears = [];
+  for (var i = 1980; i <= 2017; i++) {
+    movieYears.push(i);
+  }
+  var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
+  return rand.toString();
+}
+
+function getOldYear() {
+  var movieYears = [];
+  for (var i = 1945; i <= 1979; i++) {
+    movieYears.push(i);
+  }
+  var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
+  return rand.toString();
 }
 // get the url for the imgposters from tmdb
-function getMoviePosters(){
-     var imgUrl = "https://image.tmdb.org/t/p/w500";
-     return imgUrl;	
+function getMoviePosters() {
+  var imgUrl = "https://image.tmdb.org/t/p/w500";
+  return imgUrl;
 }
 </script>

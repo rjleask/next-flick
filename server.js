@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var exphbs = require("express-handlebars");
 var path = require('path');
+var cookieParser = require('cookie-parser');
 var db = require("./models");
 
 app.use(express.static(path.join(__dirname, 'public')));
