@@ -14,12 +14,27 @@ h1 {
   color: white;
   text-align: center;
 }
+h2{
+  text-align: center;
+  color: white;
+}
 p{
 	text-align: center;
 }
 
 a{
 	color: black;
+}
+label{
+  color: white;
+}
+section#modal {
+    width: 40%;
+    height: 300px;
+    margin: auto auto;
+    border-radius: 6px;
+    background: white;
+    background-image: url("http://www.stargatecinema.com/images/T/t_89208-112.jpg");
 }
 .btn{
 	padding: 9px 12px;

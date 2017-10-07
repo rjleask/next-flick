@@ -1,6 +1,6 @@
 var db = require("../models");
 module.exports = function(app) {
-	// cookie
+  // cookie on initial page load
   app.get('/', function(req, res) {
     var cookie = req.cookies.user;
     var loggedIn = false;
@@ -12,17 +12,32 @@ module.exports = function(app) {
       loggedIn = true;
       console.log(cookie);
     }
-    res.render("index",{loggedIn:loggedIn});
+    res.render("index", { loggedIn: loggedIn });
   })
   // personalize settings
   app.get('/personalize', function(req, res) {
     res.render("settings");
   })
-
+  // sign up modal form, enter into database as new user
+  app.post('/', function(req, res) {
+    db.User.findOne({
+      where: {
+        username: req.body.modalUsername,
+        password: req.body.modalPassword
+      }
+    }).then(function(data) {
+      if (data) {
+        console.log("user exists", data);
+      } else {
+        console.log("weere good to go");
+        res.redirect("/");
+      }
+    })
+  })
+  // post cookie data
   app.post('/api/cookie', function(req, res) {
     console.log("gets to POST");
-    // // read cookies
-    // console.log(req.cookies)
+
     var options = {
       maxAge: 1000 * 60 * 15, // would expire after 15 minutes
       httpOnly: true, // The cookie only accessible by the web server

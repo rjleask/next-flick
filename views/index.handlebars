@@ -1,6 +1,7 @@
 <nav class="navbar navbar-inverse">
   {{#if loggedIn}}
   <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="/personalize">Personalize</a></button>
+  <button type="button" class="btn btn-default navbar-btn navbar-right" id="logout">Logout</button>
   {{else}}
   <form class="navbar-form navbar-left">
     <div class="form-group">
@@ -9,7 +10,25 @@
     </div>
     <button type="submit" class="btn btn-default" id="login">Login</button>
   </form>
-  <button type="button" class="btn btn-default navbar-btn navbar-right">Sign Up</button>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-default navbar-btn navbar-right"  id="sign-up">Sign Up</button>
+
+<!-- Modal -->
+<section id="modal" class="modal fade">
+  <div class="modal-body">
+  <form  action="/" method="POST" role="form">
+    <div class="form-group">
+      <h2>Registration Form</h2>
+      <label>Username</label>
+      <input type="text" class="form-control" name="modalUsername" placeholder="Enter Username">
+      <label>Password</label>
+      <input type="text" class="form-control" name="modalPassword" placeholder="Enter Password">
+    </div>
+    <button type="submit" class="btn btn-default" id="modal-submit">Submit</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  </form>
+</div>
+</section>
   {{/if}}
 </nav>
 <div class="jumbotron">
@@ -23,7 +42,13 @@
   </p>
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+// modal
+$("#sign-up").on("click",function(){
+   $("#modal").modal({show:true});
+})
 var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10";
 
 // get horror movies using api
@@ -57,6 +82,7 @@ $("#action").on("click", function() {
 $("#login").on("click", function(event) {
     // alert("ok");
         event.preventDefault();
+        $("#logout").css("display","inline-block");
        var loginInfo = {
         username: $("#username").val(),
         password: $("#password").val()
@@ -71,13 +97,13 @@ $("#login").on("click", function(event) {
           console.log(err);
        });
 
-       // alert("make get request");
-       // $.get("/api/cookie").done(function(data){
-       //    console.log("gets to this 1");
-       // }).fail(function(err){
-       //    console.log(err);
-       // })
   });
+
+// logout/delete cookie
+$("#logout").on("click",function(){
+    $.removeCookie("user");
+    location.reload('user');
+})
 // sign in 
 // $("#sign-up").on("click", function(e) {
 //   if ($.trim($("#password").val()) === "" || $.trim($("#username").val()) === "") {
