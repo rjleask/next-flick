@@ -16,10 +16,15 @@ h1 {
 }
 p{
 	text-align: center;
+  color: white;
 }
 
 a{
 	color: black;
+}
+
+.label {
+  color: white;
 }
 .btn{
 	padding: 9px 12px;
@@ -48,6 +53,9 @@ a{
 .jumbotron {
   background: white;
   padding-left: 2%;
+  position: relative;
+  background-size: cover;
+  background-image: url("https://www.princekuhioplaza.com/content/dam/rw-2/images/mall-images/mall-features/movies-desktop.png")
 }
 
 .navbar {
@@ -57,4 +65,45 @@ a{
 
 .form-wrapper {
   margin-left: 20px;
+}
+
+#curtain {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#submit {
+  position: relative;
+}
+
+#usernamePz {
+  height: 40px;
+  width: 100px;
+}
+
+#passwordPz {
+  height: 40px;
+  width: 100px;
+}
+
+#titlePz {
+  font-size: 38px;
+  color: white;
+  position: relative;
+  left: 90px;
+}
+
+.category {
+  color: #999115;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.question {
+  text-align: left;
+}
+
+#alert_placeholder {
+  color: white;
 }
