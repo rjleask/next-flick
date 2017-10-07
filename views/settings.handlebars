@@ -2,7 +2,6 @@
   <nav class="navbar navbar-inverse">
     <h1>Personalize Your Settings</h1>
   <button type="button" class="btn btn-default navbar-btn"><a href="/">Home</a></button>
-  <button type="button" class="btn btn-default navbar-btn">Sign in</button>
 </nav>
   <div class="jumbotron">
   <form>
@@ -90,13 +89,14 @@
     Romantic     ----(The Notebook, Titanic)
   </label>
 </div>
- <button type="submit" id="submit" class="btn btn-default">Submit</button>
+ <button type="submit" id="submit" class="btn btn-default">Save</button>
 </div>
 </form>
 </div>
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+alert(document.cookie.user);
   $("#submit").on('click',function(e){
     e.preventDefault();
     var actionChecked = $('input[name=optionsAction]:checked').val();
@@ -110,7 +110,8 @@
       drama: dramaChecked
     }
     console.log(checkedInput);
-    $.post("/api/settings",checkedInput,function(){
+    $.post("/api/settings",checkedInput).done(function(){
+      window.location = "/";
     })
   })
 </script>

@@ -17,5 +17,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   });
+  Settings.associate = function(models) {
+    Settings.belongsTo(models.User, {
+    });
+  };
+ 
   return Settings;
 };

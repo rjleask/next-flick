@@ -1,13 +1,16 @@
 <nav class="navbar navbar-inverse">
+  {{#if loggedIn}}
+  <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="/personalize">Personalize</a></button>
+  {{else}}
   <form class="navbar-form navbar-left">
     <div class="form-group">
       <input type="text" class="form-control" id="username" placeholder="Username">
       <input type="text" class="form-control" id="password" placeholder="Password">
     </div>
-    <button type="submit" class="btn btn-default" id="sign-in">Login</button>
+    <button type="submit" class="btn btn-default" id="login">Login</button>
   </form>
-  <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="/personalize">Personalize</a></button>
   <button type="button" class="btn btn-default navbar-btn navbar-right">Sign Up</button>
+  {{/if}}
 </nav>
 <div class="jumbotron">
   <h1>NEXT FLICK!</h1>
@@ -26,40 +29,69 @@ var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be
 // get horror movies using api
 $("#horror").on("click", function() {
   var horrorUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=true&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=27%2C53";
-  $(".movieBoxes").remove.then(getMovies(horrorUrl));
+  $(".movieBoxes").remove();
+  getMovies(horrorUrl);
 })
 // get drama
 $("#drama").on("click", function() {
   var dramaUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10&with_genres=18%2C10749";
-  $(".movieBoxes").remove.then(getMovies(dramaUrl));
+  $(".movieBoxes").remove();
+  getMovies(dramaUrl);
 })
 // get comedy
 $("#comedy").on("click", function() {
   var comedyUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=35";
 
-  $(".movieBoxes").remove().then(getMovies(comedyUrl));
+  $(".movieBoxes").remove();
+  getMovies(comedyUrl);
 })
 //  get action
 $("#action").on("click", function() {
   var actionUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=1967&vote_average.gte=6&vote_average.lte=10&with_genres=28"
-  $(".movieBoxes").remove().then(getMovies(actionUrl));
+  $(".movieBoxes").remove();
+  getMovies(actionUrl);
   // getMovies(actionUrl); 
 
 })
+// drop a cookie
+$("#login").on("click", function(event) {
+    // alert("ok");
+        event.preventDefault();
+       var loginInfo = {
+        username: $("#username").val(),
+        password: $("#password").val()
+       }
+       $.post("/api/cookie",loginInfo).done(function(data){
+          if(data){
+            console.log("this is a test");
+            window.location = '/';
+            console.log(window.location.href);
+          }
+       }).fail(function(err){
+          console.log(err);
+       });
+
+       // alert("make get request");
+       // $.get("/api/cookie").done(function(data){
+       //    console.log("gets to this 1");
+       // }).fail(function(err){
+       //    console.log(err);
+       // })
+  });
 // sign in 
-$("#sign-in").on("click", function(e) {
-  if ($.trim($("#password").val()) === "" || $.trim($("#username").val()) === "") {
-    e.preventDefault();
-    alert("Must provide username and password first");
-    return false;
-  } else {
-    var loginInfo = {
-      username: $("#username").val(),
-      password: $("#password").val()
-    }
-    $.post("/api/login", loginInfo, function() {})
-  }
-})
+// $("#sign-up").on("click", function(e) {
+//   if ($.trim($("#password").val()) === "" || $.trim($("#username").val()) === "") {
+//     e.preventDefault();
+//     alert("Must provide username and password first");
+//     return false;
+//   } else {
+//     var loginInfo = {
+//       username: $("#username").val(),
+//       password: $("#password").val()
+//     }
+//     $.post("/api/login", loginInfo, function() {})
+//   }
+// })
 getMovies(initialUrl);
 // get movies from api
 function getMovies(movieSearch) {
