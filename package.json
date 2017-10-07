@@ -18,15 +18,15 @@
   },
   "homepage": "https://github.com/rjleask/create-a-pizza#readme",
   "dependencies": {
-    "body-parser": "^1.18.1",
+    "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.15.4",
+    "express": "^4.16.1",
     "express-handlebars": "^3.0.0",
     "method-override": "^2.3.9",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",
     "path": "^0.12.7",
-    "sequelize": "^4.11.5",
+    "sequelize": "^4.13.5",
     "sequelize-cli": "^3.0.0"
   }
 }
