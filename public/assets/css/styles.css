@@ -8,12 +8,10 @@ body {
 
 /*Image for the box*/
 img {
-  /*display: inline-block;*/
   display: block;
   align-items: center;
   max-height: 100%;
   max-width: 100%; 
-/*  width: 5 px;*/
 } 
 
 h1 {
@@ -42,26 +40,11 @@ a{
     display: inline-block;
     width: 300px;
     height: 430px;
-    background: black; 
-    /*margin: 10px;*/
-    /*border: 3px solid #73AD21;*/ 
-  
+    background: black;  
     border: 19px solid black;
-/*  border-image: url(/assets/images/movie.jpg) 41 42 stretch;*/
   border-image: url(/assets/images/movie.jpg) 60 round;
-  /*width: 32%;*/
   margin: 5px;
-  /*float: left;*/
 }
-
-/*.movieBoxes {
-  border: 19px solid black;
-  border-image: url(/assets/images/movie.jpg) 41 42 stretch;
-  border-image: url(/assets/images/movie.jpg) 60 round;
-  width: 32%;
-  margin: 5px;
-  float: left;
-}*/
 
 .navbar-btn {
 	background: #bfa53f;
@@ -73,8 +56,6 @@ a{
 
 .jumbotron {
   background: white;
-  /*text-align: center;*/
-  /*padding-left: 2%;*/
 }
 
 #movieListIndex {
