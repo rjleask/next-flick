@@ -21,7 +21,7 @@ require("./routes/user-api.js")(app);
 
 
 var PORT = process.env.PORT || 3000;
-db.sequelize.sync({ force: true }).then(function() {
+db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });

@@ -1,8 +1,6 @@
 body {
   font-family: 'Limelight', cursive;
   background: black;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(245, 240, 245, 1) 12%, rgba(255, 250, 255, 1) 25%, rgba(0, 0, 0, 1) 39%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 51%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 1) 76%, rgba(0, 0, 0, 1) 91%, rgba(0, 0, 0, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000', GradientType=0);
 }
 
 img {
@@ -10,59 +8,79 @@ img {
   max-width: 100%;
 }
 
+
 h1 {
   color: white;
   text-align: center;
 }
-h2{
+
+h2 {
   text-align: center;
   color: white;
 }
-p{
-	text-align: center;
+
+p {
+  text-align: center;
 }
 
-a{
-	color: black;
+a {
+  color: black;
 }
-label{
-  color: white;
+
+label {
+  /*color: white;*/
 }
+
 section#modal {
-    width: 40%;
-    height: 300px;
-    margin: auto auto;
-    border-radius: 6px;
-    background: white;
-    background-image: url("http://www.stargatecinema.com/images/T/t_89208-112.jpg");
+  width: 40%;
+  height: 300px;
+  margin: auto auto;
+  border-radius: 6px;
+  background: white;
+  background-image: url("http://www.stargatecinema.com/images/T/t_89208-112.jpg");
 }
-.btn{
-	padding: 9px 12px;
-	background: #bfa53f;
-	
+
+.btn {
+  padding: 9px 12px;
+  background: #bfa53f;
 }
-.form-control{
-	padding: 19px 10px;
+
+.form-control {
+  padding: 19px 10px;
 }
-.movieBoxes {
-  border: 19px solid black;
+
+
+/*.movieBoxes {*/
+
+
+/*border: 19px solid black;
   border-image: url(/assets/images/movie.jpg) 41 42 stretch;
   width: 32%;
   margin: 5px;
-  float: left;
+  float: left;*/
+
+.movieBoxes {
+  display: inline-block;
+  width: 300px;
+  height: 430px;
+  background: black;
+  border: 19px solid black;
+  border-image: url(/assets/images/movie1.jpg) 60 round;
+  margin: 5px;
 }
 
 .navbar-btn {
-	background: #bfa53f;
+  background: #bfa53f;
   color: black;
   font-weight: bold;
-  padding:10px 20px;
+  padding: 10px 20px;
   letter-spacing: 1px;
 }
 
 .jumbotron {
   background: white;
-  padding-left: 2%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(245, 240, 245, 1) 12%, rgba(255, 250, 255, 1) 25%, rgba(0, 0, 0, 1) 39%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 51%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 1) 76%, rgba(0, 0, 0, 1) 91%, rgba(0, 0, 0, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000', GradientType=0);
 }
 
 .navbar {
@@ -72,4 +90,8 @@ section#modal {
 
 .form-wrapper {
   margin-left: 20px;
+}
+/*id for jumbotron*/
+#jumbo-index{
+  text-align: center;
 }

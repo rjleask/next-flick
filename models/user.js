@@ -7,6 +7,10 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    md5username: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
   // joining user with settings table with a hasone relationship

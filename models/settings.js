@@ -17,8 +17,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   });
+  // settings
   Settings.associate = function(models) {
     Settings.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false
+      }
     });
   };
  

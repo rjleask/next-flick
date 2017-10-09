@@ -96,7 +96,6 @@
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-alert(document.cookie.user);
   $("#submit").on('click',function(e){
     e.preventDefault();
     var actionChecked = $('input[name=optionsAction]:checked').val();
@@ -110,8 +109,8 @@ alert(document.cookie.user);
       drama: dramaChecked
     }
     console.log(checkedInput);
-    $.post("/api/settings",checkedInput).done(function(){
-      window.location = "/";
+    $.post("/",checkedInput).done(function(){
+      // window.location = "/";
     })
   })
 </script>

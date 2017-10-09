@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse">
   {{#if loggedIn}}
-  <button type="button" class="btn btn-default navbar-btn navbar-right"><a href="/personalize">Personalize</a></button>
+  <button type="button" class="btn btn-default navbar-btn navbar-right" id="personalize"><a href="/personalize">Personalize</a></button>
   <button type="button" class="btn btn-default navbar-btn navbar-right" id="logout">Logout</button>
   {{else}}
   <form class="navbar-form navbar-left">
@@ -31,7 +31,7 @@
 </section>
   {{/if}}
 </nav>
-<div class="jumbotron">
+<div class="jumbotron" id="jumbo-index">
   <h1>NEXT FLICK!</h1>
   <p>What are you feeling?</p>
   <p>
@@ -46,6 +46,7 @@
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 // modal
+console.log($.cookie("user"));
 $("#sign-up").on("click",function(){
    $("#modal").modal({show:true});
 })
@@ -53,6 +54,7 @@ var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be
 
 // get horror movies using api
 $("#horror").on("click", function() {
+  // $.get("/",)
   var horrorUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=true&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=27%2C53";
   $(".movieBoxes").remove();
   getMovies(horrorUrl);
@@ -79,19 +81,22 @@ $("#action").on("click", function() {
 
 })
 // drop a cookie
-$("#login").on("click", function(event) {
-    // alert("ok");
+$("body").on("click","#login", function(event) {
         event.preventDefault();
-        $("#logout").css("display","inline-block");
+        // $("#logout").css("display","inline-block");
        var loginInfo = {
         username: $("#username").val(),
         password: $("#password").val()
        }
+
        $.post("/api/cookie",loginInfo).done(function(data){
           if(data){
-            console.log("this is a test");
             window.location = '/';
-            console.log(window.location.href);
+      $(".navbar").append("<h2 class='navbar-left'>Welcome "+$.cookie('user')+"</h2>");
+          }else{
+            alert("User not found");
+            $("#username").val("");
+            $("#password").val("");
           }
        }).fail(function(err){
           console.log(err);
