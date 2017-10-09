@@ -22,7 +22,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10";
-
 // get horror movies using api
 $("#horror").on("click", function() {
   var horrorUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=true&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=27%2C53";
@@ -36,7 +35,6 @@ $("#drama").on("click", function() {
 // get comedy
 $("#comedy").on("click", function() {
   var comedyUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=35";
-
   $(".movieBoxes").remove().then(getMovies(comedyUrl));
 })
 //  get action
@@ -44,7 +42,6 @@ $("#action").on("click", function() {
   var actionUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=1967&vote_average.gte=6&vote_average.lte=10&with_genres=28"
   $(".movieBoxes").remove().then(getMovies(actionUrl));
   // getMovies(actionUrl); 
-
 })
 // sign in 
 $("#sign-in").on("click", function(e) {
@@ -69,11 +66,12 @@ function getMovies(movieSearch) {
     success: function(data) {
       console.log(data.results[0].poster_path);
       for (var i = 0; i < 12; i++) {
-        $(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
+        // $(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
+        $(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path + ">" + "<div class='middle'>" + "<div class='text'>" + "John Doe" + "</div>" +
+  "</div>" + "</div>");
       }
     }
   });
-
 }
 // make random year for initial page load
 function getYear() {
@@ -84,7 +82,6 @@ function getYear() {
   var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
   return rand.toString();
 }
-
 function getOldYear() {
   var movieYears = [];
   for (var i = 1945; i <= 1979; i++) {
@@ -98,4 +95,6 @@ function getMoviePosters() {
   var imgUrl = "https://image.tmdb.org/t/p/w500";
   return imgUrl;
 }
+
+
 </script>

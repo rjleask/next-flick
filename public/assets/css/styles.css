@@ -8,11 +8,37 @@ body {
 
 /*Image for the box*/
 img {
+  opacity: 1;
   display: block;
   align-items: center;
   max-height: 100%;
   max-width: 100%; 
 } 
+
+img:hover {
+  opacity: 0.5;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.middle:hover {
+  opacity: 1;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
 
 h1 {
   color: white;
@@ -45,6 +71,11 @@ a{
   border-image: url(/assets/images/movie.jpg) 60 round;
   margin: 5px;
 }
+
+/*works
+.movieBoxes:hover {
+  opacity: 0.3;
+}*/
 
 .navbar-btn {
 	background: #bfa53f;
