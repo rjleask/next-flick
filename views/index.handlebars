@@ -110,12 +110,6 @@ $("body").on("click","#login", function(event) {
 
   });
 
-//Login Click 
-
-$('button.dropdown-toggle').on('click', function(){
-  $('i').toggleClass('fa-chevron right fa-chevron down');
-});
-
 
 // logout/delete cookie
 $("#logout").on("click",function(){
@@ -145,8 +139,16 @@ function getMovies(movieSearch) {
     success: function(data) {
       console.log(data.results[0].poster_path);
       for (var i = 0; i < 12; i++) {
-        $(".jumbotron").append("<div class='movieBoxes'><img class='movieImg' src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
-        // $('.movieImg').hide();
+        $(".jumbotron").append("<div class='movieBoxes'><div class='overlay'></div><img class='movieImg' src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
+         
+         $('.movieBoxes').hover(function(){
+            $(this).children("img").fadeTo(10, 0.2)
+              .end().children(".overlay").show();
+            $('.movieBoxes').append('')
+        }, function() {
+            $(this).children("img").fadeTo(0, 1)
+              .end().children(".overlay").hide();
+            });
       }
     }
   });

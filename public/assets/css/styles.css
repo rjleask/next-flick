@@ -124,3 +124,10 @@ h3.navbarTitle.navbar-left{
 #jumbo-index{
   text-align: center;
 }
+
+div.overlay{ 
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+}
