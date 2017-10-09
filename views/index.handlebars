@@ -1,65 +1,178 @@
- 
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.handlebars"><b>Next-Flick</b></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  {{#if loggedIn}}
+  <button type="button" class="btn btn-default navbar-btn navbar-right" id="personalize"><a href="/personalize">Personalize</a></button>
+  <button type="button" class="btn btn-default navbar-btn navbar-right" id="logout">Logout</button>
+  {{else}}
+  <h3 class="navbarTitle navbar-left">Next Flick</h3>
+  <form class="navbar-form navbar-right">
+    <div class="btn-group">
 
-<div class="jumbotron text-center">
-    <div class="container jumboContainer">
-        <h1>Jumbotron</h1>
-            <p>Test Paragraph</p>
-            <p><a class="btn btn-primary btn-lg">Personalize</a></p>
+   <button type="submit" class="btn dropdown-toggle btn-default" data-toggle="dropdown" id="login">Login <i class="fa fa-chevron-down"></i></button>
+  <ul class="dropdown-menu">
+    <div class="form-group">
+      <input type="text" class="form-control" id="username" placeholder="Username">
+      <input type="text" class="form-control" id="password" placeholder="Password">
+      <button type="submit" class="btn btn-default" id="login">Login</button>
     </div>
+  </ul>
 </div>
-<div class="text-center"></div>
-<footer>
-</footer>
-<script></script>
-</body>
-</html>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-	function getMovies(){
-    $.ajax({
-      url: "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10",
-        dataType: 'json',
-        success: function(data){
-        	console.log(data.results[0].poster_path);
-        	for(var i=0; i < 10; i++){
-        		$(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path +"></div>"); 
-        	}
-        }
-    });
+  </form>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-default navbar-btn navbar-right"  id="sign-up">Sign Up</button>
 
+<!-- Modal -->
+<section id="modal" class="modal fade">
+  <div class="modal-body">
+  <form  action="/" method="POST" role="form">
+    <div class="form-group">
+      <h2>Registration Form</h2>
+      <label>Username</label>
+      <input type="text" class="form-control" name="modalUsername" placeholder="Enter Username">
+      <label>Password</label>
+      <input type="text" class="form-control" name="modalPassword" placeholder="Enter Password">
+    </div>
+    <button type="submit" class="btn btn-default" id="modal-submit">Submit</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  </form>
+</div>
+</section>
+  {{/if}}
+</nav>
+<div class="jumbotron" id="jumbo-index">
+  <p>What are you feeling?</p>
+  <p>
+    <button type="button" class="btn btn-default navbar-btn filterBtn" id="horror">Horror</button>
+    <button type="button" class="btn btn-default navbar-btn filterBtn" id="drama">Drama</button>
+    <button type="button" class="btn btn-default navbar-btn filterBtn" id="action">Action</button>
+    <button type="button" class="btn btn-default navbar-btn filterBtn" id="comedy">Comedy</button>
+  </p>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+// modal
+console.log($.cookie("user"));
+$("#sign-up").on("click",function(){
+   $("#modal").modal({show:true});
+})
+var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10";
+
+// get horror movies using api
+$("#horror").on("click", function() {
+  // $.get("/",)
+  var horrorUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=true&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=27%2C53";
+  $(".movieBoxes").remove();
+  getMovies(horrorUrl);
+})
+// get drama
+$("#drama").on("click", function() {
+  var dramaUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10&with_genres=18%2C10749";
+  $(".movieBoxes").remove();
+  getMovies(dramaUrl);
+})
+// get comedy
+$("#comedy").on("click", function() {
+  var comedyUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=35";
+
+  $(".movieBoxes").remove();
+  getMovies(comedyUrl);
+})
+//  get action
+$("#action").on("click", function() {
+  var actionUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=1967&vote_average.gte=6&vote_average.lte=10&with_genres=28"
+  $(".movieBoxes").remove();
+  getMovies(actionUrl);
+  // getMovies(actionUrl); 
+
+})
+// drop a cookie
+$("body").on("click","#login", function(event) {
+        event.preventDefault();
+        // $("#logout").css("display","inline-block");
+       var loginInfo = {
+        username: $("#username").val(),
+        password: $("#password").val()
+       }
+
+       $.post("/api/cookie",loginInfo).done(function(data){
+          if(data){
+            window.location = '/';
+      $(".navbar").append("<h2 class='navbar-left'>Welcome "+$.cookie('user')+"</h2>");
+          }else{
+            alert("User not found");
+            $("#username").val("");
+            $("#password").val("");
+          }
+       }).fail(function(err){
+          console.log(err);
+       });
+
+  });
+
+//Login Click 
+
+$('button.dropdown-toggle').on('click', function(){
+  $('i').toggleClass('fa-chevron right fa-chevron down');
+});
+
+
+// logout/delete cookie
+$("#logout").on("click",function(){
+    $.removeCookie("user");
+    location.reload('user');
+})
+// sign in 
+// $("#sign-up").on("click", function(e) {
+//   if ($.trim($("#password").val()) === "" || $.trim($("#username").val()) === "") {
+//     e.preventDefault();
+//     alert("Must provide username and password first");
+//     return false;
+//   } else {
+//     var loginInfo = {
+//       username: $("#username").val(),
+//       password: $("#password").val()
+//     }
+//     $.post("/api/login", loginInfo, function() {})
+//   }
+// })
+getMovies(initialUrl);
+// get movies from api
+function getMovies(movieSearch) {
+  $.ajax({
+    url: movieSearch,
+    dataType: 'json',
+    success: function(data) {
+      console.log(data.results[0].poster_path);
+      for (var i = 0; i < 12; i++) {
+        $(".jumbotron").append("<div class='movieBoxes'><img class='movieImg' src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
+        // $('.movieImg').hide();
+      }
+    }
+  });
 }
-getMovies();
+
 // make random year for initial page load
-function getYear(){
-	var movieYears =[];
-	for(var i=1968; i <= 2017; i++ ){
-     movieYears.push(i);
-	}
-	var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
-	return rand.toString();
+function getYear() {
+  var movieYears = [];
+  for (var i = 1980; i <= 2017; i++) {
+    movieYears.push(i);
+  }
+  var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
+  return rand.toString();
+}
+
+function getOldYear() {
+  var movieYears = [];
+  for (var i = 1945; i <= 1979; i++) {
+    movieYears.push(i);
+  }
+  var rand = movieYears[Math.floor(Math.random() * movieYears.length)]
+  return rand.toString();
 }
 // get the url for the imgposters from tmdb
-function getMoviePosters(){
-     var imgUrl = "https://image.tmdb.org/t/p/w500";
-     return imgUrl;	
+function getMoviePosters() {
+  var imgUrl = "https://image.tmdb.org/t/p/w500";
+  return imgUrl;
 }
 </script>

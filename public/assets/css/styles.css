@@ -1,21 +1,126 @@
-img{
-	max-height: 100%;
-	max-width: 100%;
+body {
+  background: black;
+  font-family: 'monteserat', sans-serif;
 }
-h1{
-	color:white;
-	text-align: center;
+
+img {
+  max-height: 100%;
+  max-width: 100%;
 }
-.movieBoxes {
-	width: 30%;
-	float: left;
+
+
+h1 {
+  color: white;
+  text-align: center;
 }
+
+h2 {
+  text-align: center;
+  color: white;
+}
+
+p {
+  text-align: center;
+}
+
+a {
+  color: black;
+}
+
+label {
+  /*color: white;*/
+}
+
+section#modal {
+  width: 40%;
+  height: 300px;
+  margin: auto auto;
+  border-radius: 6px;
+  background: white;
+  background-image: url("http://www.stargatecinema.com/images/T/t_89208-112.jpg");
+}
+
+.btn {
+  padding: 9px 12px;
+  background: #fed024;
+  font-weight: bold;
+  border-radius:0;
+  letter-spacing: 1px;
+}
+
+button#login{
+  width: 100%;
+  border-radius: 0;
+  letter-spacing: 1px;
+}
+
 .navbar-btn {
-	background: #82ffa9;
-    color: black;
-    font-weight: bold;
-    letter-spacing: 1px;
+  background: #fed024;
+  color: #222222;
+  font-weight: bold;
+  padding: 10px 20px;
+  letter-spacing: 1px;
 }
-.form-wrapper{
-	margin-left: 20px;
+
+.filterBtn{
+  background: none;
+  color:#222;
+  outline: 1px solid #222;
+  border-radius: 0;
+}
+
+.form-control {
+  padding: 19px 10px;
+  border-radius: 0;
+}
+
+h3.navbarTitle.navbar-left{
+  color:#fff;
+  font-size: 32px;
+  padding-top: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+
+/*.movieBoxes {*/
+
+
+/*border: 19px solid black;
+  border-image: url(/assets/images/movie.jpg) 41 42 stretch;
+  width: 32%;
+  margin: 5px;
+  float: left;*/
+
+.movieBoxes {
+  display: inline-block;
+  width: 300px;
+  height: 430px;
+  background: black;
+  border: 19px solid black;
+  border-image: url(/assets/images/movie1.jpg) 60 round;
+  margin: 5px;
+}
+
+.jumbotron {
+  background: white;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(245, 240, 245, 1) 12%, rgba(255, 250, 255, 1) 25%, rgba(0, 0, 0, 1) 39%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 51%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 1) 76%, rgba(0, 0, 0, 1) 91%, rgba(0, 0, 0, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000', GradientType=0);
+}
+
+.navbar {
+  margin-bottom: 0;
+  padding: 1% 2% 0 1%;
+
+}
+
+.form-wrapper {
+  margin-left: 20px;
+}
+/*id for jumbotron*/
+#jumbo-index{
+  text-align: center;
 }
