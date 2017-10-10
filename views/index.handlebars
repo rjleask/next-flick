@@ -166,7 +166,7 @@ $("body").on("click","#login", function(event) {
        $.post("/api/cookie",loginInfo).done(function(data){
           if(data){
             window.location = '/';
-      $(".navbar").append("<h2 class='navbar-left'>Welcome "+$.cookie('user')+"</h2>");
+      // $(".navbar").append("<h2 class='navbar-left'>Welcome "+$.cookie('user')+"</h2>");
           }else{
             alert("User not found");
             $("#username").val("");
@@ -314,8 +314,8 @@ function Search(settings,pageNumber,minimumRating,movieGenres,removeGenres){
     return newSearchQuery.searchMovies;
     break;
 
-    case "hor-true-story":
-    var newSearchQuery = new Search("hor-true-story",1,6,movieIdHorArray[2].mystery)
+    case "hor-mystery":
+    var newSearchQuery = new Search("hor-mystery",1,6,movieIdHorArray[2].mystery)
     return newSearchQuery.searchMovies;
 }
 }

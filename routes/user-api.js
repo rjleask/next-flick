@@ -16,9 +16,7 @@ module.exports = function(app) {
     }
     res.render("index", { loggedIn: loggedIn });
   })
-  // app.get('/movie', function(req, res) {
-  //   res.render("movie")
-  // })
+
   app.post('/movie', function(req, res) {
     var moviePacket = {
       movieTitle: req.body.movieTitle,
@@ -86,10 +84,6 @@ module.exports = function(app) {
         res.json(false);
       }
     })
-
-
-    // // Set cookie
-    // res.end();
   });
 
 

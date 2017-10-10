@@ -191,3 +191,23 @@ section#modal {
   padding: 0;
   text-align: center;
 }
+/*------*/
+/*settings */
+/*------*/
+.save-btn{
+  padding: 9px 34px;
+}
+.form-labels{
+  color: white;
+  font-family:sans-serif;
+}
+.radio label{
+margin-left: 25%;
+}
+.form-par{
+  color:#bfa53f;
+}
+#settings-jumbo{
+  background-image: url("http://images.all-free-download.com/images/graphiclarge/red_stage_curtain_hd_picture_165757.jpg");
+  background-size: cover;
+}

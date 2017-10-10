@@ -6,11 +6,6 @@ module.exports = function(app) {
   app.post("/api/settings", function(req, res) {
 
     usernameFromCookie = req.cookies.user;
-    // if (!usernameFromCookie) {
-    //   console.log("Houston, we have a problem!");
-    // } else {
-    //   console.log("username: " + usernameFromCookie);
-    // }
 
     db.User.findOne({
       where: {
