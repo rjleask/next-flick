@@ -95,6 +95,7 @@
 </div>
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script type="text/javascript">
   $("#submit").on('click',function(e){
     e.preventDefault();
@@ -109,7 +110,12 @@
       drama: dramaChecked
     }
     console.log(checkedInput);
-    $.post("/",checkedInput).done(function(){
+    // make cookies for user
+    var actionCookie = $.cookie("settingsAct",checkedInput.action);
+    var comedyCookie = $.cookie("settingsCom",checkedInput.comedy);
+    var horrorCookie = $.cookie("settingsHor",checkedInput.horror);
+    var dramaCookie = $.cookie("settingsDra",checkedInput.drama);
+    $.post("/api/settings",checkedInput).done(function(){
       // window.location = "/";
     })
   })

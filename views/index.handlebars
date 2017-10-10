@@ -2,6 +2,7 @@
   {{#if loggedIn}}
   <button type="button" class="btn btn-default navbar-btn navbar-right" id="personalize"><a href="/personalize">Personalize</a></button>
   <button type="button" class="btn btn-default navbar-btn navbar-right" id="logout">Logout</button>
+  <h2 class="navbar-left">Welcome!</h2>
   {{else}}
   <form class="navbar-form navbar-left">
     <div class="form-group">
@@ -41,43 +42,94 @@
     <button type="button" class="btn btn-default navbar-btn" id="comedy">Comedy</button>
   </p>
 </div>
+    {{#if loggedIn}}
+    <div class="page-buttons">
+    <button type="button" class="btn btn-default" id="back-btn">Prev</button>
+    <button type="button" class="btn btn-default" id="next-btn">Next</button>
+  </div>
+    {{/if}}
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 // modal
-console.log($.cookie("user"));
+var nextPage = 1;
+var defaultUrl = "";
+
+var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10";
+
+
+// registration form
 $("#sign-up").on("click",function(){
    $("#modal").modal({show:true});
 })
-var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10";
+
 
 // get horror movies using api
 $("#horror").on("click", function() {
-  // $.get("/",)
+   nextPage = 1;
+   if(isLoggedInUser()){
+  $(".movieBoxes").remove();
+  getNextPage("settingsHor");
+  getPrevPage("settingsHor");
+  getMovieGenres($.cookie("settingsHor"));
+}
+else {
+  alert("no theres not");
   var horrorUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=true&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=27%2C53";
   $(".movieBoxes").remove();
   getMovies(horrorUrl);
+}
 })
 // get drama
 $("#drama").on("click", function() {
+    nextPage = 1;
+   if(isLoggedInUser()){
+  $(".movieBoxes").remove();
+  getNextPage("settingsDra");
+  getPrevPage("settingsDra");
+  getMovieGenres($.cookie("settingsDra"));
+}
+else {
   var dramaUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10&with_genres=18%2C10749";
+
   $(".movieBoxes").remove();
   getMovies(dramaUrl);
+}
 })
 // get comedy
 $("#comedy").on("click", function() {
+    nextPage = 1;
+   if(isLoggedInUser()){
+  $(".movieBoxes").remove();
+  getNextPage("settingsCom");
+  getPrevPage("settingsCom");
+  getMovieGenres($.cookie("settingsCom"));
+}
+else {
   var comedyUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=yes&page=1&primary_release_year=" + getYear() + "&vote_average.gte=5&vote_average.lte=10&with_genres=35";
 
   $(".movieBoxes").remove();
   getMovies(comedyUrl);
+}
 })
 //  get action
 $("#action").on("click", function() {
-  var actionUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year=1967&vote_average.gte=6&vote_average.lte=10&with_genres=28"
+   nextPage = 1;
+   if(isLoggedInUser()){
+  $(".movieBoxes").remove();
+  getNextPage("settingsAct");
+  getPrevPage("settingsAct");
+  getMovieGenres($.cookie("settingsAct"));
+  // console.log($.cookie("settingsAct"),nextPage);
+}
+else {
+  var actionUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=yes&page=1&primary_release_year="+getYear()+"&vote_average.gte=6&vote_average.lte=10&with_genres=28"
+
   $(".movieBoxes").remove();
   getMovies(actionUrl);
-  // getMovies(actionUrl); 
+  }
 
 })
 // drop a cookie
@@ -109,20 +161,7 @@ $("#logout").on("click",function(){
     $.removeCookie("user");
     location.reload('user');
 })
-// sign in 
-// $("#sign-up").on("click", function(e) {
-//   if ($.trim($("#password").val()) === "" || $.trim($("#username").val()) === "") {
-//     e.preventDefault();
-//     alert("Must provide username and password first");
-//     return false;
-//   } else {
-//     var loginInfo = {
-//       username: $("#username").val(),
-//       password: $("#password").val()
-//     }
-//     $.post("/api/login", loginInfo, function() {})
-//   }
-// })
+
 getMovies(initialUrl);
 // get movies from api
 function getMovies(movieSearch) {
@@ -130,7 +169,7 @@ function getMovies(movieSearch) {
     url: movieSearch,
     dataType: 'json',
     success: function(data) {
-      console.log(data.results[0].poster_path);
+      // console.log(data.results[0].poster_path);
       for (var i = 0; i < 12; i++) {
         $(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
       }
@@ -138,6 +177,126 @@ function getMovies(movieSearch) {
   });
 
 }
+// get the next page of results
+function getNextPage(settingsCat){
+$("body").on("click","#next-btn",function(){
+  nextPage++;
+  $(".movieBoxes").remove();
+  getPersonalizedMovies($.cookie(settingsCat),nextPage)
+})
+}
+// get previous page of results
+function getPrevPage(settingsCat){
+$("body").on("click","#back-btn",function(){
+  nextPage--;
+  $(".movieBoxes").remove();
+  getPersonalizedMovies($.cookie(settingsCat),nextPage)
+})
+}
+// check if user is logged in
+function isLoggedInUser(){
+if($.cookie("user") !== undefined){
+  return true;
+}
+else{
+  return false;
+}
+}
+function Search(settings,pageNumber,minimumRating,movieGenres,removeGenres){
+        this.settings = settings;
+        this.pageNumber = pageNumber;
+        this.minimumRating = minimumRating;
+        this.removeGenres = removeGenres;
+        this.movieGenres = movieGenres;
+        this.defaultUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+this.pageNumber+"&primary_release_date.gte=1990&primary_release_date.lte=2017&vote_average.gte="+this.minimumRating+"&vote_average.lte=10&with_genres="+this.movieGenres+this.removeGenres; 
+        this.searchMovies = getMovies(this.defaultUrl);
+}
+
+//  grabs one of 3 passed in settings and returns a search query criteria
+  function getMovieGenres(settings){
+  var movieIdActArray = [ 
+  {fighting: "53%2C80%2C12"}, 
+  {story: "28%2C%9648%2C80"}, 
+  {acting: "28%2C18"} 
+  ];
+  var movieIdComArray = [
+  {slapstick:"35"},
+  {dry:"35%2C18"},
+  {romantic:"35%2C10749"}
+  ];
+  var movieIdHorArray = [
+  {slice:"27"},
+  {thriller:"53%2C18"},
+  {mystery:"53%2C27%2C9648"}
+  ];
+  var movieIdDramArray = [
+  {acting:"18"},
+  {plot:"18%2C80"},
+  {romantic:"10749%2C18"}
+  ];
+
+    switch(settings){
+     case "act-fighting":
+     var newSearchQuery = new Search("act-fighting",1,6,movieIdActArray[0].fighting,"")
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "act-story":
+     var newSearchQuery = new Search("act-story",1,6,movieIdActArray[1].story,"")
+    return newSearchQuery.searchMovies;
+    break;
+
+     case "act-acting":
+     var newSearchQuery = new Search("act-acting",1,6,movieIdActArray[2].acting,"") 
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "com-slapstick":
+     var newSearchQuery = new Search("com-slapstick",1,6,movieIdComArray[0].slapstick,"&without_genres=10751%2C10749%2C18%2C80")
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "com-dry":
+     var newSearchQuery = new Search("com-dry",1,6,movieIdComArray[1].dry,"&without_genres=10751%2C10749")
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "com-romantic":
+     var newSearchQuery = new Search("com-romantic",1,6,movieIdComArray[2].romantic,"&without_genres=10751%2C28")
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "dra-acting":
+     var newSearchQuery = new Search("dra-acting",1,7,movieIdDramArray[0].acting,"&without_genres=53%2C28%2C35%2C37")
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "dra-plot":
+     var newSearchQuery = new Search("dra-plot",1,7,movieIdDramArray[1].plot,"&without_genres=53%2C37")
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "dra-romantic":
+     var newSearchQuery = new Search("dra-romantic",1,7,movieIdDramArray[2].romantic,"&without_genres=53%2C37%2C35")
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "hor-slice-dice":
+     var newSearchQuery = new Search("hor-slice-dice",1,5,movieIdHorArray[0].slice,"&without_genres=53%2C9648%2C18%2C28%2C35%2C10749");
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "hor-thriller":
+     var newSearchQuery = new Search("hor-thriller",1,7,movieIdHorArray[1].thriller)
+    return newSearchQuery.searchMovies;
+    break;
+
+    case "hor-true-story":
+    var newSearchQuery = new Search("hor-true-story",1,6,movieIdHorArray[2].mystery)
+    return newSearchQuery.searchMovies;
+}
+}
+
 // make random year for initial page load
 function getYear() {
   var movieYears = [];

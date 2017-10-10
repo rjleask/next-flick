@@ -5,14 +5,13 @@ module.exports = function(app) {
   app.get('/', function(req, res) {
     var cookie = req.cookies.user;
     var loggedIn = false;
-    
     if (cookie === undefined) {
       // need to disable login
       console.log("new user");
     } else {
       // need to come up with suggestions for logged in user
       loggedIn = true;
-      
+
     }
     res.render("index", { loggedIn: loggedIn });
   })
@@ -38,7 +37,7 @@ module.exports = function(app) {
         db.User.create({
           username: req.body.modalUsername,
           password: req.body.modalPassword,
-          md5username:md5(req.body.modalUsername)
+          md5username: md5(req.body.modalUsername)
         });
         res.redirect("/");
 
@@ -50,7 +49,7 @@ module.exports = function(app) {
   app.post('/api/cookie', function(req, res) {
 
     var options = {
-      maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+      maxAge: 1000 * 60 * 25, // would expire after 15 minutes
       httpOnly: false, // The cookie only accessible by the web server
       // signed: true // Indicates if the cookie should be signed
     }
@@ -60,15 +59,14 @@ module.exports = function(app) {
         password: req.body.password
       }
     }).then(function(data) {
-    	console.log(data);
-    	if(data !== null){
-      res.cookie('user', md5(req.body.password), options) // options is optional
-      res.json(true);
-    }
-    else{
-    	console.log("User not found");
-    	res.json(false);
-    }
+      console.log(data);
+      if (data !== null) {
+        res.cookie('user', md5(req.body.password), options) // options is optional
+        res.json(true);
+      } else {
+        console.log("User not found");
+        res.json(false);
+      }
     })
 
 

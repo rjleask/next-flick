@@ -48,6 +48,9 @@ section#modal {
 .form-control {
   padding: 19px 10px;
 }
+.page-buttons{
+  margin-left: 43%;
+}
 
 
 /*.movieBoxes {*/
@@ -78,6 +81,7 @@ section#modal {
 }
 
 .jumbotron {
+  padding-bottom: 20px;
   background: white;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(245, 240, 245, 1) 12%, rgba(255, 250, 255, 1) 25%, rgba(0, 0, 0, 1) 39%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 51%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 1) 76%, rgba(0, 0, 0, 1) 91%, rgba(0, 0, 0, 1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000', GradientType=0);
@@ -87,6 +91,9 @@ section#modal {
   margin-bottom: 0;
   padding: 2%;
 }
+.revealElements{
+  display: inline-block;
+}
 
 .form-wrapper {
   margin-left: 20px;
@@ -94,4 +101,7 @@ section#modal {
 /*id for jumbotron*/
 #jumbo-index{
   text-align: center;
+}
+#next-btn {
+  margin-left: 10px;
 }

@@ -3,7 +3,7 @@ module.exports = function(app) {
   var usernameFromCookie = '';
   var userId = 0;
 
-  app.post("/", function(req, res) {
+  app.post("/api/settings", function(req, res) {
 
     usernameFromCookie = req.cookies.user;
     // if (!usernameFromCookie) {
@@ -32,7 +32,7 @@ module.exports = function(app) {
         drama: req.body.drama,
         UserId: userId
       }).then(function(data) {
-        res.send(data);
+
       })
 
 
