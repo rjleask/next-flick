@@ -1,5 +1,6 @@
 var db = require("../models");
 var md5 = require("md5");
+
 module.exports = function(app) {
   // cookie on initial page load
   app.get('/', function(req, res) {
@@ -14,6 +15,23 @@ module.exports = function(app) {
 
     }
     res.render("index", { loggedIn: loggedIn });
+  })
+  // app.get('/movie', function(req, res) {
+  //   res.render("movie")
+  // })
+  app.post('/movie', function(req, res) {
+    var moviePacket = {
+      movieTitle: req.body.movieTitle,
+      moviePoster: req.body.moviePoster,
+      movieId: req.body.movieId,
+      movieBackdrop: req.body.movieBackdrop,
+      movieOverview: req.body.movieOverview,
+      movieRating: req.body.movieRating,
+      movieRelease: req.body.movieRelease,
+      movieRuntime: req.body.movieRuntime
+    }
+    res.render("movie",{moviePacket:moviePacket});
+    // res.render("movie", { moviePacket: moviePacket });
   })
   // personalize settings
   app.get('/personalize', function(req, res) {

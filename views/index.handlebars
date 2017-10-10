@@ -2,7 +2,7 @@
   {{#if loggedIn}}
   <button type="button" class="btn btn-default navbar-btn navbar-right" id="personalize"><a href="/personalize">Personalize</a></button>
   <button type="button" class="btn btn-default navbar-btn navbar-right" id="logout">Logout</button>
-  <h2 class="navbar-left">Welcome!</h2>
+  <h2 class="navbar-left">Welcome back!</h2>
   {{else}}
   <form class="navbar-form navbar-left">
     <div class="form-group">
@@ -59,7 +59,29 @@ var defaultUrl = "";
 
 var initialUrl = "https://api.themoviedb.org/3/discover/movie?api_key=312dfe53be027207d3159a0f85da777f&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + getYear() + "&vote_average.gte=7&vote_average.lte=10";
 
-
+$("body").on("click","img",function(){
+  var movieInfo = $(this);
+  $.ajax({
+    url:"https://api.themoviedb.org/3/movie/"+movieInfo.data("movie-id")+"?api_key=312dfe53be027207d3159a0f85da777f&language=en-US",
+    dataType: 'json',
+    success: function(data) {
+      var moviePacket = {
+        movieTitle: data.title,
+        moviePoster: "https://image.tmdb.org/t/p/w500"+data.poster_path,
+        movieId: data.id,
+        movieBackdrop: "https://image.tmdb.org/t/p/w500"+data.backdrop_path,
+        movieOverview: data.overview,
+        movieRating: data.vote_average,
+        movieRelease: data.release_date,
+        movieRuntime: data.runtime
+      }
+      $.post("/movie",moviePacket).done(function(res){
+        $("body").html(res);
+      })
+      console.log(data);
+    }
+})
+})
 // registration form
 $("#sign-up").on("click",function(){
    $("#modal").modal({show:true});
@@ -171,7 +193,7 @@ function getMovies(movieSearch) {
     success: function(data) {
       // console.log(data.results[0].poster_path);
       for (var i = 0; i < 12; i++) {
-        $(".jumbotron").append("<div class='movieBoxes'><img src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
+        $(".jumbotron").append("<div class='movieBoxes'><img data-movie-id=" + data.results[i].id+" src=" + getMoviePosters() + data.results[i].poster_path + "></div>");
       }
     }
   });
@@ -202,6 +224,7 @@ else{
   return false;
 }
 }
+// contructor that handles each search query
 function Search(settings,pageNumber,minimumRating,movieGenres,removeGenres){
         this.settings = settings;
         this.pageNumber = pageNumber;

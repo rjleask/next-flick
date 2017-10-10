@@ -18,10 +18,10 @@ module.exports = function(app) {
       }
     }).then(function(data) {
       if (data) {
-        console.log("the id for this user is: ", data.id);
+        // console.log("the id for this user is: ", data.id);
         userId = data.id;
       } else {
-        console.log("we had a problem");
+        console.log("we have a problem");
       }
 
       console.log('userId: ' + userId);
