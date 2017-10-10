@@ -1,0 +1,51 @@
+<nav class="navbar navbar-inverse" id="nav-id">
+  {{!-- <button type="button" class="btn btn-default navbar-btn navbar-right" id="logout">Logout</button> --}}
+  <h1 class="nav-title">{{moviePacket.movieTitle}}</h1>
+  <a href="/"><button type="button" class="btn btn-default navbar-btn navbar-left" id="home">Home</button></a>
+  <a  class="trailer-link" href="#" target="_blank"><button type="button" class="btn btn-default navbar-btn navbar-right" id="trailer-btn">View Trailer</button></a>
+
+     <div class="span-box">
+      <span class="movieStuff">Rating:{{moviePacket.movieRating}}</span>
+      <span class="movieStuff">|</span>
+      <span class="movieStuff">Release:{{moviePacket.movieRelease}}</span>
+      <span class="movieStuff">|</span>
+      <span class="movieStuff">Runtime:{{moviePacket.movieRuntime}}</span>
+    </div>
+    <p class="overview">{{moviePacket.movieOverview}}</p>
+</nav>
+<div class="jumbotron" id="jumbo-movie" style="background-image: url({{moviePacket.movieBackdrop}});">
+  {{!-- <img id="backdrop" src={{moviePacket.movieBackdrop}}> --}}
+
+    <div class="individual-box"><img src={{moviePacket.moviePoster}}>
+    </div>
+    <p class="currentId" style="display:none">{{moviePacket.movieId}}</p>
+</div>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+// toggle overview display
+$('#nav-id').on({
+    mouseenter: function () {
+      console.log($(this).children("p"));
+        $(this).children("p").css('display','inline-block');
+    },
+    mouseleave: function () {
+        $('p').css('display','none');  
+    }
+  })
+
+var idHolder = $(".currentId").text();
+  console.log(idHolder);  
+   $.ajax({
+    url:"https://api.themoviedb.org/3/movie/"+ idHolder +"/videos?api_key=312dfe53be027207d3159a0f85da777f&language=en-US",
+    dataType: 'json',
+    success: function(data) {
+      console.log(data.results[0].key);
+      $(".trailer-link").attr("href","https://www.youtube.com/watch?v="+data.results[0].key+"");
+   }
+  });
+
+</script
