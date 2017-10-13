@@ -10,7 +10,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-app.use(express.static(__dirname + '/public/assets/css'));
+app.use(express.static(__dirname + '/public/assets'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // // Override with POST having ?_method=DELETE
