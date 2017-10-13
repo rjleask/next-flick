@@ -1,5 +1,4 @@
 <nav class="navbar navbar-inverse" id="nav-id">
-  {{!-- <button type="button" class="btn btn-default navbar-btn navbar-right" id="logout">Logout</button> --}}
   <h1 class="nav-title">{{moviePacket.movieTitle}}</h1>
   <a href="/"><button type="button" class="btn btn-default navbar-btn navbar-left" id="home">Home</button></a>
   <a  class="trailer-link" href="#" target="_blank"><button type="button" class="btn btn-default navbar-btn navbar-right" id="trailer-btn">View Trailer</button></a>
@@ -14,7 +13,6 @@
     <p class="overview">{{moviePacket.movieOverview}}</p>
 </nav>
 <div class="jumbotron" id="jumbo-movie" style="background-image: url({{moviePacket.movieBackdrop}});">
-  {{!-- <img id="backdrop" src={{moviePacket.movieBackdrop}}> --}}
 
     <div class="individual-box"><img src={{moviePacket.moviePoster}}>
     </div>
@@ -36,7 +34,7 @@ $('#nav-id').on({
         $('p').css('display','none');  
     }
   })
-
+// addes trailer link to trailer button
 var idHolder = $(".currentId").text();
   console.log(idHolder);  
    $.ajax({
